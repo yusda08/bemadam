@@ -1,0 +1,7 @@
+{
+
+    "require": {
+        "mpdf/mpdf": "^7.1",
+        "twbs/bootstrap": "^4.1"
+    }
+}

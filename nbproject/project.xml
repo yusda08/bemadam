@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>org.netbeans.modules.php.project</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/php-project/1">
+            <name>dispemdes</name>
+        </data>
+        <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>AMnsd</word>
+            <word>Hapus</word>
+            <word>IKK</word>
+            <word>Indikator</word>
+            <word>KABUPATEN</word>
+            <word>Kinerja</word>
+            <word>Lokasi</word>
+            <word>Nasional</word>
+            <word>Pendat</word>
+            <word>Pilih</word>
+            <word>PROVINSI</word>
+            <word>Renja</word>
+            <word>RKA</word>
+            <word>RKPD</word>
+            <word>SIGADIS</word>
+            <word>Usaha</word>
+            <word>Verifikasi</word>
+        </spellchecker-wordlist>
+    </configuration>
+</project>

@@ -1,0 +1,145 @@
+﻿/*////////////////////////////////////////////
+// ggContentMenu Cell JS/CSS PlugIn V1.0    //
+// Developed by: Ing.Gerardo Garita J.      //
+// FullStack Developer                      //
+// email: info@ggaritaj.com                 //
+// date: friday, 2018-09-01                 //
+// last date: friday, 2018-09-01            //
+////////////////////////////////////////////*/
+
+ul.ggContentMenu:first-child,
+.ggContentMenu ul {
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+}
+
+.ggContentMenu ul li {
+    padding:10px 5px;
+    text-align:left;
+}
+
+.ggContentMenu ol {
+    padding: 0px;
+    margin: 0px 0px 0px 30px;
+    list-style-type: decimal;
+}
+
+.ggContentMenu ol.alpha {
+    list-style-type:lower-alpha !important;
+}
+
+.ggContentMenu ol.roman {
+    list-style-type:upper-roman !important;
+}
+
+.ggContentMenu ol.vignette {
+    list-style-type: circle !important;
+}
+
+.ggContentMenu li[menu-level="1"] {
+    text-align: center;
+}
+
+.ggContentMenu li[menu-level="2"] {
+}
+
+.ggContentMenu li[menu-level="3"] {
+    text-align: center;
+}
+
+.ggContentMenu ul li a {
+    margin: 10px 5px;
+    outline: none;
+    text-decoration: none;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.ggContentMenu ul li a:hover {
+    cursor: pointer;
+    color: #ff0000;
+}
+
+.ggContentMenu ul li a:focus {
+    color:#ff0000;
+    text-decoration:underline !important
+}
+
+.ggContentMenu a:before {
+    content: "+";
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+.ggContentMenu a.active:before {
+    content: "-";
+}
+
+.ggContentMenu a[href]:before {
+    content: none !important;
+}
+
+.ggContentMenu a.active + div.contentMenu {
+    -webkit-animation: fadeInLeft 0.7s ease-in-out both;
+    animation: fadeInLeft 0.7s ease-in-out both;
+    display: block !important;
+    max-width: 260px;
+}
+
+.ggContentMenu a + div.contentMenu {
+    display:none !important;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.ggContentMenu div.contentMenu.first {
+    position: absolute;
+    overflow: auto;
+    border-radius: 0px;
+    width: 260px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 100px 10px rgba(0, 0, 0, .14), 
+        0px 1px 10px 0px rgba(0, 0, 0, .12), 
+        0px 2px 4px -1px rgba(0, 0, 0, .2);
+}
+
+.ggContentMenu li[menu-level="1"] div.contentMenu:not(.first) {
+    margin-top: 15px;
+    background: #f9f9f9;
+}
+
+.ggContentMenu li[menu-level="2"] div.contentMenu:not(.first) {
+    background: #fbf8e7;
+}
+     
+@-webkit-keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(-100%, 0, 0);
+        transform: translate3d(-100%, 0, 0);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(-100%, 0, 0);
+        transform: translate3d(-100%, 0, 0);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
