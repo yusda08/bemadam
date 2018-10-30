@@ -30,7 +30,11 @@ echo $javasc;
             </div>
 
             <div class="col-sm-12 well"> 
-                <div class="col-sm-4">
+                <div class="col-sm-12">
+                    <h3 class="text-center">Perbandingan Desa Provinsi Kalimantan Selatan</h3>
+                    <div class="highchart-container2"></div>
+                </div>
+                <div class="col-sm-12">
                         <table class="highchart table table-hover table-bordered table-responsive" data-graph-container=".. .. .highchart-container2" data-graph-type="column">
                             <caption>Tabel Jumlah Desa</caption>
                             <thead>
@@ -38,7 +42,8 @@ echo $javasc;
                                     <th>Nama Kabupaten</th>
                                     <th class="">Jumlah Desa</th>
                                     <th class="">Desa Berkinerja Baik</th>
-                                    <th class="">Desa Belum Mandiri</th>
+                                    <th class="">Desa Berkinerja Sedang</th>
+                                    <th class="">Desa Berkinerja Rendah</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,27 +51,21 @@ echo $javasc;
                                 $no = 1;
                                 foreach ($get_kabJmlDesa as $row) {
                                     $row_mdr = $this->Model_penilaian->get_jmlMandiri($row['kd_kab'], $a['tahun']);
-                                    $jml_mandiri = $row_mdr->jml_mandiri;
-                                    if (is_null($jml_mandiri)) {
-                                        $jml_mandiri = 0;
-                                    } else {
-                                        $jml_mandiri = $jml_mandiri;
-                                    }
+                                    $jml_baik = !is_null($row_mdr->jml_baik) ? $row_mdr->jml_baik : 0;
+                                    $jml_sedang = !is_null($row_mdr->jml_sedang) ? $row_mdr->jml_sedang : 0;
+                                    $jml_rendah = !is_null($row_mdr->jml_rendah) ? $row_mdr->jml_rendah : 0;
                                     ?>
                                     <tr>
                                         <td><?= $row['nama']; ?></td>
                                         <td class="text-center"><?= $row['jml_desa']; ?></td>
-                                        <td class="text-center"><?= $jml_mandiri; ?></td>
-                                        <td class="text-center"><?= $row['jml_desa'] - $jml_mandiri; ?></td>
+                                        <td class="text-center"><?= $jml_baik; ?></td>
+                                        <td class="text-center"><?= $jml_sedang; ?></td>
+                                        <td class="text-center"><?= $jml_rendah; ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
                         </table>
                     </div>
-                <div class="col-sm-8">
-                    <h3 class="text-center">Perbandingan Desa Provinsi Kalimantan Selatan</h3>
-                    <div class="highchart-container2"></div>
-                </div>
             </div>
         </div>
     </div>

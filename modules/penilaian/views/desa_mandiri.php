@@ -70,19 +70,18 @@ $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                                             <th class="bg-gray-active">Nama Desa</th>
                                             <th class="bg-gray-active">Jumlah Bidang</th>
                                             <th class="bg-gray-active">Jumlah Kegiatan</th>
-                                            <th class="bg-gray-active">Status</th>
+                                            <th class="bg-gray-active">Status Kinerja Desa</th>
                                             <th class="bg-gray-active" width="8%"><i class="fa fa-crop"></i></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                       
                                         $no = 1;
                                         foreach ($get_dataDesa as $row) {
-                                            if ($kd_kab == $row->kd_kab and $kd_kec == $row->kd_kec){
-                                                    $jml_bid = $row->jml_bid;
-                                                    $jml_keg = $row->jml_keg;
-                                                    $status_desa = $row->status_desa;
+                                            if ($kd_kab == $row->kd_kab and $kd_kec == $row->kd_kec) {
+                                                $jml_bid = $row->jml_bid;
+                                                $jml_keg = $row->jml_keg;
+                                                $status_desa = $row->status_desa;
                                                 ?>
                                                 <tr>
                                                     <td class="text-center"><?= $row_prov->kd_prov . '.' . sprintf('%02s', $kd_kab) . '.' . sprintf('%02s', $kd_kec) . '.' . $row->kd_desa; ?></td>
@@ -91,10 +90,12 @@ $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                                                     <td class="text-center" >
                                                         <?php
                                                         if ($jml_bid >= 4) {
-                                                            echo '<label class="label label-success">' . $jml_bid . ' Bidang</label>';
-                                                        } elseif ($jml_bid > 0 and $jml_bid < 4) {
-                                                            echo '<label class="label label-warning">' . $jml_bid . ' Bidang</label>';
-                                                        } else {
+                                                            echo '<label class="label label-success">' . $jml_bid . ' Kegiatan</label>';
+                                                        } elseif ($jml_bid >= 3) {
+                                                            echo '<label class="label label-warning">' . $jml_bid . ' Kegiatan</label>';
+                                                        } elseif($jml_bid <= 2 and  $jml_bid > 0) {
+                                                            echo '<label class="label label-danger">'.$jml_bid.' Bidang</label>';
+                                                        }else{
                                                             echo '<label class="label label-danger">NULL</label>';
                                                         }
                                                         ?>
@@ -103,20 +104,27 @@ $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                                                         <?php
                                                         if ($jml_keg >= 4) {
                                                             echo '<label class="label label-success">' . $jml_keg . ' Kegiatan</label>';
-                                                        } elseif ($jml_keg > 0 and $jml_keg < 4) {
+                                                        } elseif ($jml_keg >= 3) {
                                                             echo '<label class="label label-warning">' . $jml_keg . ' Kegiatan</label>';
-                                                        } else {
+                                                        } elseif($jml_keg <= 2 and $jml_keg > 0) {
+                                                            echo '<label class="label label-danger">'.$jml_keg.' Kegiatan</label>';
+                                                        }else{
                                                             echo '<label class="label label-danger">NULL</label>';
                                                         }
                                                         ?>
                                                     </td>
                                                     <td class="text-center">
+                                                        <?php if ($status_desa == 'BAIK') { ?> 
+                                                            <label class="label label-primary"><?= $status_desa; ?></label>
+                                                        <?php } elseif ($status_desa == 'SEDANG') { ?>
+                                                            <label class="label label-warning"><?= $status_desa; ?></label>
+                                                        <?php } elseif ($status_desa == 'RENDAH') { ?>
+                                                            <label class="label label-danger"><?= $status_desa; ?></label>
                                                         <?php
-                                                        if($status_desa == 'Belum Mandiri'){ ?> 
-                                                        <label class="label label-warning"><?= $status_desa; ?></label>
-                                                        <?php }else{ ?>
-                                                        <label class="label label-primary"><?= $status_desa; ?></label>
-                                                        <?php } ?>
+                                                        } else {
+                                                            echo '<label class="label label-danger">NULL</label>';
+                                                        }
+                                                        ?>
                                                     </td>
                                                     <td class="text-center no-padding">
                                                         <a href="<?= site_url('penilaian/Desa_mandiri/inputKegiatan?kd_kab=' . $kd_kab . '&kd_kec=' . $kd_kec . '&kd_desa=' . $row->kd_desa); ?>" class="btn btn-default btn-primary"><i class="fa fa-search"></i> Kegiatan</a>
