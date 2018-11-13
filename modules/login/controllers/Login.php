@@ -103,4 +103,10 @@ class Login extends MY_Controller {
         $this->load->view('back/lock_screen', $req);
     }
 
+    function kembali($text) {
+//        return var_dump($text);
+        rest($text);
+        redirect($this->index());
+    }
+
 }

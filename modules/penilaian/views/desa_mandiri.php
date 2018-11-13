@@ -61,8 +61,8 @@ $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                         </div>
 
                         <?php if (!empty($kd_kab) and ! empty($kd_kec)) { ?>
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
+                            <!--<div class="table-responsive">-->
+                                <table class="table table-bordered tabel_3" width="100%">
                                     <thead>
                                         <tr>
                                             <th class="bg-gray-active" width="8%">Kode</th>
@@ -90,10 +90,10 @@ $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                                                     <td class="text-center" >
                                                         <?php
                                                         if ($jml_bid >= 4) {
-                                                            echo '<label class="label label-success">' . $jml_bid . ' Kegiatan</label>';
-                                                        } elseif ($jml_bid >= 3) {
-                                                            echo '<label class="label label-warning">' . $jml_bid . ' Kegiatan</label>';
-                                                        } elseif($jml_bid <= 2 and  $jml_bid > 0) {
+                                                            echo '<label class="label label-success">' . $jml_bid . ' Bidang</label>';
+                                                        } elseif ($jml_bid >= 2) {
+                                                            echo '<label class="label label-warning">' . $jml_bid . ' Bidang</label>';
+                                                        } elseif($jml_bid <= 1 and  $jml_bid > 0) {
                                                             echo '<label class="label label-danger">'.$jml_bid.' Bidang</label>';
                                                         }else{
                                                             echo '<label class="label label-danger">NULL</label>';
@@ -104,9 +104,9 @@ $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                                                         <?php
                                                         if ($jml_keg >= 4) {
                                                             echo '<label class="label label-success">' . $jml_keg . ' Kegiatan</label>';
-                                                        } elseif ($jml_keg >= 3) {
+                                                        } elseif ($jml_keg >= 2) {
                                                             echo '<label class="label label-warning">' . $jml_keg . ' Kegiatan</label>';
-                                                        } elseif($jml_keg <= 2 and $jml_keg > 0) {
+                                                        } elseif($jml_keg <= 1 and $jml_keg > 0) {
                                                             echo '<label class="label label-danger">'.$jml_keg.' Kegiatan</label>';
                                                         }else{
                                                             echo '<label class="label label-danger">NULL</label>';
@@ -136,7 +136,6 @@ $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                                         ?>
                                     </tbody>
                                 </table>
-                            </div>
                         <?php } ?>
                     </div>
                 </div>

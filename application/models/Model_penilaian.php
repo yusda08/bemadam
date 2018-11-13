@@ -19,12 +19,27 @@ class Model_penilaian extends CI_Model {
     private $pesanRendah = 'RENDAH';
     private $pesanBelum = 'Belum Terdata';
 
-
     public function get_penilaianDesaMandiri($kd_kab, $kd_kec, $tahun) {
         $nilai = penilaianIdm();
         $id_status = $nilai['id_status'];
-        $query = $this->db->query("select b.*, a.tahun,  c.jml_bid, d.jml_keg, if(c.jml_bid>=4 and d.jml_keg>=4, '$this->pesanBaik', 
-if(c.jml_bid>=3 and d.jml_keg>=3 , '$this->pesanSedang', if(c.jml_bid<=3 and d.jml_keg<=3, '$this->pesanRendah', '$this->pesanBelum'))) as status_desa, z.status
+        if ($id_status == '6') {
+            $query = $this->db->query("select b.*, a.tahun,  c.jml_bid, d.jml_keg, if(c.jml_bid>=4 and d.jml_keg>=4, '$this->pesanBaik', 
+if(c.jml_bid>=2 and d.jml_keg>=2 , '$this->pesanSedang', if(c.jml_bid<=1 and d.jml_keg<=1, '$this->pesanRendah', '$this->pesanBelum'))) as status_desa, z.status
+from ref_desa b
+join data_idm z on z.kd_prov=b.kd_prov and z.kd_kab=b.kd_kab and b.kd_kec=z.kd_kec and b.kd_desa=z.kd_desa
+left join data_desa_mandiri a  on a.kd_prov=b.kd_prov and a.kd_kab=b.kd_kab and a.kd_kec=b.kd_kec 
+and a.kd_desa=b.kd_desa  and a.tahun=$tahun 
+left join (select a.*, count(distinct b.kd_bid) jml_bid from data_desa_mandiri a join ref_kegiatan b on a.kd_keg=b.kd_keg 
+and a.kd_prog=b.kd_prog group by a.kd_prov, a.kd_kab, a.kd_kec, a.kd_desa) as c on c.kd_keg=a.kd_keg 
+and a.kd_prog=c.kd_prog and a.kd_prov=c.kd_prov and a.kd_kab=c.kd_kab and a.kd_kec=c.kd_kec and a.kd_desa=c.kd_desa
+left join (select a.kd_prov, a.kd_kab, a.kd_kec, a.kd_desa, a.tahun, count(a.kd_keg) as jml_keg from data_desa_mandiri a 
+group by a.kd_prov, a.kd_kab, a.kd_kec, a.kd_desa) d on a.kd_prov=d.kd_prov and a.kd_kab=d.kd_kab 
+and a.kd_kec=d.kd_kec and a.kd_desa=d.kd_desa 
+where b.kd_kab=$kd_kab and b.kd_kec=$kd_kec
+group by b.kd_prov, b.kd_kab, b.kd_kec, b.kd_desa");
+        } else {
+            $query = $this->db->query("select b.*, a.tahun,  c.jml_bid, d.jml_keg, if(c.jml_bid>=4 and d.jml_keg>=4, '$this->pesanBaik', 
+if(c.jml_bid>=2 and d.jml_keg>=2 , '$this->pesanSedang', if(c.jml_bid<=1 and d.jml_keg<=1, '$this->pesanRendah', '$this->pesanBelum'))) as status_desa, z.status
 from ref_desa b
 join data_idm z on z.kd_prov=b.kd_prov and z.kd_kab=b.kd_kab and b.kd_kec=z.kd_kec and b.kd_desa=z.kd_desa and z.`status`=$id_status
 left join data_desa_mandiri a  on a.kd_prov=b.kd_prov and a.kd_kab=b.kd_kab and a.kd_kec=b.kd_kec 
@@ -37,11 +52,8 @@ group by a.kd_prov, a.kd_kab, a.kd_kec, a.kd_desa) d on a.kd_prov=d.kd_prov and 
 and a.kd_kec=d.kd_kec and a.kd_desa=d.kd_desa 
 where b.kd_kab=$kd_kab and b.kd_kec=$kd_kec
 group by b.kd_prov, b.kd_kab, b.kd_kec, b.kd_desa");
-        if ($query) {
-            return $query;
-        } else {
-            return false;
         }
+        return $query;
     }
 
     public function get_bidangDesa($kd_kab, $kd_kec, $kd_desa, $tahun) {
@@ -167,7 +179,7 @@ left join data_idm a on a.kd_prov=b.kd_prov and a.kd_kab=b.kd_kab and a.kd_kec=b
 left join 
 (select a.kd_prov, a.kd_kab, a.kd_kec, a.kd_desa, a.tahun,  c.jml_bid, d.jml_keg,
 if(c.jml_bid>=4 and d.jml_keg>=4, '$this->pesanBaik', 
-if(c.jml_bid>=3 and d.jml_keg>=3 , '$this->pesanSedang', if(c.jml_bid<=3 and d.jml_keg<=3, '$this->pesanRendah', '$this->pesanBelum'))) as status_desa
+if(c.jml_bid>=2 and d.jml_keg>=2 , '$this->pesanSedang', if(c.jml_bid<=1 and d.jml_keg<=1, '$this->pesanRendah', '$this->pesanBelum'))) as status_desa
  from data_desa_mandiri a 
 left join ref_desa b on a.kd_prov=b.kd_prov 
 and a.kd_kab=b.kd_kab and a.kd_kec=b.kd_kec and a.kd_desa=b.kd_desa
@@ -208,7 +220,7 @@ left join data_idm a on a.kd_prov=b.kd_prov and a.kd_kab=b.kd_kab and a.kd_kec=b
 left join 
 (select a.kd_prov, a.kd_kab, a.kd_kec, a.kd_desa, a.tahun,  c.jml_bid, d.jml_keg,
 if(c.jml_bid>=4 and d.jml_keg>=4, '$this->pesanBaik', 
-if(c.jml_bid>=3 and d.jml_keg>=3 , '$this->pesanSedang', if(c.jml_bid<=3 and d.jml_keg<=3, '$this->pesanRendah', '$this->pesanBelum'))) as status_desa
+if(c.jml_bid>=2 and d.jml_keg>=2 , '$this->pesanSedang', if(c.jml_bid<=1 and d.jml_keg<=1, '$this->pesanRendah', '$this->pesanBelum'))) as status_desa
  from data_desa_mandiri a 
 left join ref_desa b on a.kd_prov=b.kd_prov 
 and a.kd_kab=b.kd_kab and a.kd_kec=b.kd_kec and a.kd_desa=b.kd_desa
@@ -236,7 +248,7 @@ left join data_idm a on a.kd_prov=b.kd_prov and a.kd_kab=b.kd_kab and a.kd_kec=b
 left join 
 (select a.kd_prov, a.kd_kab, a.kd_kec, a.kd_desa, a.tahun,  c.jml_bid, d.jml_keg,
 if(c.jml_bid>=4 and d.jml_keg>=4, '$this->pesanBaik', 
-if(c.jml_bid>=3 and d.jml_keg>=3 , '$this->pesanSedang', if(c.jml_bid<=3 and d.jml_keg<=3, '$this->pesanRendah', '$this->pesanBelum'))) as status_desa
+if(c.jml_bid>=2 and d.jml_keg>=2 , '$this->pesanSedang', if(c.jml_bid<=1 and d.jml_keg<=1, '$this->pesanRendah', '$this->pesanBelum'))) as status_desa
  from data_desa_mandiri a 
 left join ref_desa b on a.kd_prov=b.kd_prov 
 and a.kd_kab=b.kd_kab and a.kd_kec=b.kd_kec and a.kd_desa=b.kd_desa
@@ -277,7 +289,7 @@ left join data_idm a on a.kd_prov=b.kd_prov and a.kd_kab=b.kd_kab and a.kd_kec=b
 left join 
 (select a.kd_prov, a.kd_kab, a.kd_kec, a.kd_desa, a.tahun,  c.jml_bid, d.jml_keg,
 if(c.jml_bid>=4 and d.jml_keg>=4, '$this->pesanBaik', 
-if(c.jml_bid>=3 and d.jml_keg>=3 , '$this->pesanSedang', if(c.jml_bid<=3 and d.jml_keg<=3, '$this->pesanRendah', '$this->pesanBelum'))) as status_desa
+if(c.jml_bid>=2 and d.jml_keg>=2 , '$this->pesanSedang', if(c.jml_bid<=1 and d.jml_keg<=1, '$this->pesanRendah', '$this->pesanBelum'))) as status_desa
  from data_desa_mandiri a 
 left join ref_desa b on a.kd_prov=b.kd_prov 
 and a.kd_kab=b.kd_kab and a.kd_kec=b.kd_kec and a.kd_desa=b.kd_desa
@@ -305,7 +317,7 @@ left join data_idm a on a.kd_prov=b.kd_prov and a.kd_kab=b.kd_kab and a.kd_kec=b
 left join 
 (select a.kd_prov, a.kd_kab, a.kd_kec, a.kd_desa, a.tahun,  c.jml_bid, d.jml_keg,
 if(c.jml_bid>=4 and d.jml_keg>=4, '$this->pesanBaik', 
-if(c.jml_bid>=3 and d.jml_keg>=3 , '$this->pesanSedang', if(c.jml_bid<=3 and d.jml_keg<=3, '$this->pesanRendah', '$this->pesanBelum'))) as status_desa
+if(c.jml_bid>=2 and d.jml_keg>=2 , '$this->pesanSedang', if(c.jml_bid<=1 and d.jml_keg<=1, '$this->pesanRendah', '$this->pesanBelum'))) as status_desa
  from data_desa_mandiri a 
 left join ref_desa b on a.kd_prov=b.kd_prov 
 and a.kd_kab=b.kd_kab and a.kd_kec=b.kd_kec and a.kd_desa=b.kd_desa

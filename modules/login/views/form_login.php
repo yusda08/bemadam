@@ -122,7 +122,7 @@
                                 <p style="font-weight: bold; font-size: 14pt" class="text-center">
                                     Form Login :</p>
                                 <form id='login-form'>
-                                <!--<form action="<?php // echo base_url('login/Login/validasi');        ?>" method="POST">-->
+                                <!--<form action="<?php // echo base_url('login/Login/validasi');            ?>" method="POST">-->
                                     <div class="form-group has-feedback">
                                         <label>Username</label>
                                         <input type="text" name='username' id='username' class="form-control" autofocus="true" placeholder="Username">
@@ -149,7 +149,8 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-6">
-                                            <!--<a href="<?= site_url('Home'); ?>" class="btn btn-danger btn-flat"><i class="fa fa-backward"></i> Kembali</a>-->
+                                            <input name="text" type="hidden" id="textValue">
+                                            <button class="hidden btn btn-danger btn-flat" type="button" onclick="kembali($('#textValue').val())"><i class="fa fa-backward"></i> Kembali</button>
                                         </div>
                                         <div class="col-xs-6">
                                             <span class="pull-right">
@@ -188,47 +189,55 @@
         <script src="<?php echo base_url(); ?>assets/js/plugin/jquery-validation/src/localization/messages_id.js"></script>
 
         <script type="text/javascript">
-            $(document).ready(function () {
-                $("#login-form").validate({
-                    submitHandler: function (form) {
-                        $("button[type='submit']").click(function () {
-                            var $btn = $(this);
-                            $btn.button('loading');
-                            setTimeout(function () {
-                                $btn.button('reset');
-                            }, 4000);
-                        });
-                        var username = $('#username').val();
-                        var password = $('#password').val();
-                        var tahun = $('#tahun').val();
-                        $.ajax({
-                            type: "POST",
-                            url: "<?php echo base_url('login/Login/validasi'); ?>",
-                            data: {
-                                username: username,
-                                password: password,
-                                tahun: tahun
-                            },
-                            success: function (msg)
-                            {
-                                if (msg == "true") {
-                                    $("#get-notified").html('<div class="alert alert-success alert-dismissable animated fadeIn"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> <h4><i class="icon fa fa-check"></i> Sukses!</h4> Berhasil Masuk. </div>');
-                                    setTimeout(function () {// wait for 2 secs
+                                                function kembali(textVal) {
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        url: "<?php echo base_url('login/Login/kembali/'); ?>" + textVal,
+                                                        success: function (data) {
+                                                        }
+                                                    });
+                                                }
+                                                $(document).ready(function () {
+                                                    $("#login-form").validate({
+                                                        submitHandler: function (form) {
+                                                            $("button[type='submit']").click(function () {
+                                                                var $btn = $(this);
+                                                                $btn.button('loading');
+                                                                setTimeout(function () {
+                                                                    $btn.button('reset');
+                                                                }, 4000);
+                                                            });
+                                                            var username = $('#username').val();
+                                                            var password = $('#password').val();
+                                                            var tahun = $('#tahun').val();
+                                                            $.ajax({
+                                                                type: "POST",
+                                                                url: "<?php echo base_url('login/Login/validasi'); ?>",
+                                                                data: {
+                                                                    username: username,
+                                                                    password: password,
+                                                                    tahun: tahun
+                                                                },
+                                                                success: function (msg)
+                                                                {
+                                                                    if (msg == "true") {
+                                                                        $("#get-notified").html('<div class="alert alert-success alert-dismissable animated fadeIn"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> <h4><i class="icon fa fa-check"></i> Sukses!</h4> Berhasil Masuk. </div>');
+                                                                        setTimeout(function () {// wait for 2 secs
 //                                        window.location.href = 'login/Login/loginBerhasil';  // then reload the page.
-                                        window.location.href = '<?= base_url('login/Login/loginBerhasil'); ?>';  // then reload the page.
-                                    }, 500);
-                                } else if (msg == "false") {
-                                    $("#get-notified").html('<div class="alert alert-danger alert-dismissable animated fadeIn" id="notiv_kunic"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> <h4><i class="icon fa fa-ban"></i> Peringatan!</h4> User Anda Sedang Dikunci Administrator, Silahkan Hubungi Administrator Untuk Mengaktifkan. </div>');
-                                    $('#notiv_kunic').fadeOut(7000)// then reload the page.
-                                } else {
-                                    $("#get-notified").html('<div class="alert alert-warning alert-dismissable animated fadeIn" id="notiv_gagal"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> <h4><i class="icon fa fa-ban"></i> Peringatan!</h4> Username dan Password Salah. </div>');
-                                    $('#notiv_gagal').fadeOut(7000)// then reload the page.
-                                }
-                            }
-                        });
-                    }
-                });
-            });
+                                                                            window.location.href = '<?= base_url('login/Login/loginBerhasil'); ?>';  // then reload the page.
+                                                                        }, 500);
+                                                                    } else if (msg == "false") {
+                                                                        $("#get-notified").html('<div class="alert alert-danger alert-dismissable animated fadeIn" id="notiv_kunic"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> <h4><i class="icon fa fa-ban"></i> Peringatan!</h4> User Anda Sedang Dikunci Administrator, Silahkan Hubungi Administrator Untuk Mengaktifkan. </div>');
+                                                                        $('#notiv_kunic').fadeOut(7000)// then reload the page.
+                                                                    } else {
+                                                                        $("#get-notified").html('<div class="alert alert-warning alert-dismissable animated fadeIn" id="notiv_gagal"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> <h4><i class="icon fa fa-ban"></i> Peringatan!</h4> Username dan Password Salah. </div>');
+                                                                        $('#notiv_gagal').fadeOut(7000)// then reload the page.
+                                                                    }
+                                                                }
+                                                            });
+                                                        }
+                                                    });
+                                                });
 
 
 

@@ -16,7 +16,7 @@ $emailDns = $row_pro->email;
             <td valign="top" style="font-size: 14pt;" class="center" ><?= strtoupper($namaDns); ?></td>
         </tr>
         <tr>
-            <td valign="top" style="font-size: 10pt;" class="center" ><?= strtoupper('Alamat : ' . $alamatDns . ' No Telp :' . $noTelpDns . ' Email : ' . $emailDns); ?></td>
+            <td valign="top" style="font-size: 10pt;" class="center" ><?= strtoupper('Alamat : ' . $alamatDns . ' <br>No Telp :' . $noTelpDns . ' Email : ' . $emailDns); ?></td>
         </tr>
     </table>
     <table  border='0' repeat_header="1" cellspacing="0" width="100%" >

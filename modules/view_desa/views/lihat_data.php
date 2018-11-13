@@ -45,10 +45,12 @@ $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                                                 <option value=''> Status Filter</option>
                                                 <?php
                                                 foreach ($get_statusIdm as $stt) {
-                                                    echo"<option value='$stt->id'";
-                                                    if ($status == $stt->id)
-                                                        echo" selected";
-                                                    echo">$stt->id. $stt->nama_status</option>";
+                                                    if ($stt->id != '6') {
+                                                        echo"<option value='$stt->id'";
+                                                        if ($status == $stt->id)
+                                                            echo" selected";
+                                                        echo">$stt->id. $stt->nama_status</option>";
+                                                    }
                                                 }
                                                 ?>
                                             </select> 

@@ -19,6 +19,7 @@ class Data_lokasi extends MY_Controller {
     private $tabel_kab = 'ref_kab';
     private $tabel_kec = 'ref_kec';
     private $tabel_desa = 'ref_desa';
+    private $kd_prov = '63';
 
     public function __construct() {
         parent::__construct();
@@ -131,6 +132,7 @@ class Data_lokasi extends MY_Controller {
         $kd_kec = $this->input->post('kd_kec');
         $nama = strtoupper($this->input->post('nama'));
         $ket = strtoupper($aksi . ' Data Kecamatan Dengan : ' . $kd_kab . '.' . $kd_kec . ' - ' . $nama);
+        $data['kd_prov'] = $this->kd_prov;
         $data['kd_kab'] = $kd_kab;
         $data['kd_kec'] = $kd_kec;
         $data['nama'] = $nama;
@@ -151,6 +153,7 @@ class Data_lokasi extends MY_Controller {
         $kd_kec = $this->input->post('kd_kec');
         $data['kd_kab'] = $kd_kab;
         $data['kd_kec'] = $kd_kec;
+        $data['kd_prov'] = $this->kd_prov;
         $q = $this->delete_where($this->tabel_kec, $data);
         if ($q) {
             $ket = 'Menghapus Kecamatan Dengan kode : ' . $kd_kab . ' - ' . $kd_kec;
@@ -173,6 +176,7 @@ class Data_lokasi extends MY_Controller {
         $data['kd_kab'] = $kd_kab;
         $data['kd_kec'] = $kd_kec;
         $data['nama'] = $nama;
+        $data['kd_prov'] = $this->kd_prov;
         $data['tipe'] = 'DESA';
         $q = $this->insert_duplicate($this->tabel_desa, $data);
         if ($q) {

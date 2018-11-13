@@ -63,151 +63,151 @@ $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                         </div>
 
                         <?php if (!empty($kd_kab)) { ?>
-                            <div class="table-responsive">
-                                <table class="table table-bordered tabel_3" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th class="bg-gray-active" width="8%">Kode</th>
-                                            <th class="bg-gray-active" width="15%">Kecamatan</th>
-                                            <th class="bg-gray-active">Nama Desa</th>
-                                            <th class="bg-gray-active" width="10%">IKS</th>
-                                            <th class="bg-gray-active" width="10%">IKE</th>
-                                            <th class="bg-gray-active" width="10%">IKL</th>
-                                            <th class="bg-gray-active">Jumlah</th>
-                                            <th class="bg-gray-active">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        foreach ($get_penilaianIdm as $row) {
-                                            $row_kec = $this->Model_basis->get_dataKecWhereKd($row->kd_prov, $row->kd_kab, $row->kd_kec);
-                                            if ($row->status == 'Mandiri') {
-                                                $bg_color = 'bg-info';
-                                            } elseif ($row->status == 'Maju') {
-                                                $bg_color = 'bg-success';
-                                            } elseif ($row->status == 'Berkembang') {
-                                                $bg_color = 'bg-warning';
-                                            } elseif ($row->status == 'Tertinggal') {
-                                                $bg_color = 'bg-danger';
-                                            } else {
-                                                $bg_color = '';
-                                            }
-                                            ?>
-                                            <tr id="bg_color<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>" class="<?= $bg_color; ?>">
-                                                <td class="text-center"><?= $row->kd_prov . '.' . sprintf('%02s', $row->kd_kab) . '.' . sprintf('%02s', $row->kd_kec) . '.' . $row->kd_desa; ?></td>
-                                                <td><?= $row->nm_kec; ?></td>
-                                                <td><?= $row->nama; ?></td>
-                                                <td class="text-center no-padding">
-                                                    <input <?=$m['rul_tambah'];?> class="form-control text-center iks<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>"  name="iks" value="<?= $row->iks; ?>">
-                                                </td>
-                                                <td class="text-center no-padding"><input <?=$m['rul_tambah'];?> class="form-control text-center ike<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>"  name="ike" value="<?= $row->ike; ?>"></td>
-                                                <td class="text-center no-padding"><input <?=$m['rul_tambah'];?> class="form-control text-center ikl<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>"  name="ikl" value="<?= $row->ikl; ?>"></td>
-                                                <td class="text-center"><div class="jml_idm<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>"><?= $row->jml_idm; ?></div></td>
-                                                <td class="text-center"><div class="statusIdm<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>"><?= $row->status; ?></div></td>
+                            <!--<div class="table-responsive">-->
+                            <table class="table table-bordered tabel_3" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th class="bg-gray-active" width="8%">Kode</th>
+                                        <th class="bg-gray-active" width="15%">Kecamatan</th>
+                                        <th class="bg-gray-active">Nama Desa</th>
+                                        <th class="bg-gray-active" width="10%">IKS</th>
+                                        <th class="bg-gray-active" width="10%">IKE</th>
+                                        <th class="bg-gray-active" width="10%">IKL</th>
+                                        <th class="bg-gray-active">Jumlah</th>
+                                        <th class="bg-gray-active">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($get_penilaianIdm as $row) {
+                                        $row_kec = $this->Model_basis->get_dataKecWhereKd($row->kd_prov, $row->kd_kab, $row->kd_kec);
+                                        if ($row->status == 'Mandiri') {
+                                            $bg_color = 'bg-info';
+                                        } elseif ($row->status == 'Maju') {
+                                            $bg_color = 'bg-success';
+                                        } elseif ($row->status == 'Berkembang') {
+                                            $bg_color = 'bg-warning';
+                                        } elseif ($row->status == 'Tertinggal') {
+                                            $bg_color = 'bg-danger';
+                                        } else {
+                                            $bg_color = '';
+                                        }
+                                        ?>
+                                        <tr id="bg_color<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>" class="<?= $bg_color; ?>">
+                                            <td class="text-center"><?= $row->kd_prov . '.' . sprintf('%02s', $row->kd_kab) . '.' . sprintf('%02s', $row->kd_kec) . '.' . $row->kd_desa; ?></td>
+                                            <td><?= $row->nm_kec; ?></td>
+                                            <td><?= $row->nama; ?></td>
+                                            <td class="text-center no-padding">
+                                                <input <?= $m['rul_tambah']; ?> class="form-control text-center iks<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>"  name="iks" value="<?= $row->iks; ?>">
+                                            </td>
+                                            <td class="text-center no-padding"><input <?= $m['rul_tambah']; ?> class="form-control text-center ike<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>"  name="ike" value="<?= $row->ike; ?>"></td>
+                                            <td class="text-center no-padding"><input <?= $m['rul_tambah']; ?> class="form-control text-center ikl<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>"  name="ikl" value="<?= $row->ikl; ?>"></td>
+                                            <td class="text-center"><div class="jml_idm<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>"><?= $row->jml_idm; ?></div></td>
+                                            <td class="text-center"><div class="statusIdm<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>"><?= $row->status; ?></div></td>
 
-                                        <script>
-                                            $(".iks<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>").change(function () {
-                                                var nilai = $(this).val();
-                                                $.ajax({
-                                                    type: 'POST',
-                                                    url: '<?= site_url('penilaian/Penilaian_idm/updateImd'); ?>',
-                                                    data: {kd_prov: <?= $row->kd_prov; ?>, kd_kab: <?= $row->kd_kab; ?>, kd_kec: <?= $row->kd_kec; ?>, kd_desa: <?= $row->kd_desa; ?>, tahun:<?= $a['tahun']; ?>, nilai: nilai, aksi: 'iks'},
-                                                    success: function (msg, stts) {
-                                                        var iksNilai = parseFloat(msg['iks']);
-                                                        var ikeNilai = parseFloat(msg['ike']);
-                                                        var iklNilai = parseFloat(msg['ikl']);
-                                                        var statusIdm = msg['status'];
-                                                        var avr = Number((iksNilai + ikeNilai + iklNilai) / 3).toFixed(4);
-                                                        if (statusIdm == 'Mandiri') {
-                                                            var bg_color = 'bg-info';
-                                                        } else if (statusIdm == 'Maju') {
-                                                            var bg_color = 'bg-success';
-                                                        } else if (statusIdm == 'Berkembang') {
-                                                            var bg_color = 'bg-warning';
-                                                        } else if (statusIdm == 'Tertinggal') {
-                                                            var bg_color = 'bg-danger';
-                                                        } else {
-                                                            var bg_color = '';
-                                                        }
-                                                        $('#bg_color<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').removeClass();
-                                                        $('#bg_color<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').addClass(bg_color);
-                                                        $('.jml_idm<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').text(avr);
-                                                        $('.statusIdm<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').text(statusIdm);
+                                    <script>
+                                        $(".iks<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>").change(function () {
+                                            var nilai = $(this).val();
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: '<?= site_url('penilaian/Penilaian_idm/updateImd'); ?>',
+                                                data: {kd_prov: <?= $row->kd_prov; ?>, kd_kab: <?= $row->kd_kab; ?>, kd_kec: <?= $row->kd_kec; ?>, kd_desa: <?= $row->kd_desa; ?>, tahun:<?= $a['tahun']; ?>, nilai: nilai, aksi: 'iks'},
+                                                success: function (msg, stts) {
+                                                    var iksNilai = parseFloat(msg['iks']);
+                                                    var ikeNilai = parseFloat(msg['ike']);
+                                                    var iklNilai = parseFloat(msg['ikl']);
+                                                    var statusIdm = msg['status'];
+                                                    var avr = Number((iksNilai + ikeNilai + iklNilai) / 3).toFixed(4);
+                                                    if (statusIdm == 'Mandiri') {
+                                                        var bg_color = 'bg-info';
+                                                    } else if (statusIdm == 'Maju') {
+                                                        var bg_color = 'bg-success';
+                                                    } else if (statusIdm == 'Berkembang') {
+                                                        var bg_color = 'bg-warning';
+                                                    } else if (statusIdm == 'Tertinggal') {
+                                                        var bg_color = 'bg-danger';
+                                                    } else {
+                                                        var bg_color = '';
                                                     }
-                                                });
+                                                    $('#bg_color<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').removeClass();
+                                                    $('#bg_color<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').addClass(bg_color);
+                                                    $('.jml_idm<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').text(avr);
+                                                    $('.statusIdm<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').text(statusIdm);
+                                                }
                                             });
-                                            $(".ike<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>").change(function () {
-                                                var nilai = $(this).val();
-                                                $.ajax({
-                                                    type: 'POST',
-                                                    url: '<?= site_url('penilaian/Penilaian_idm/updateImd'); ?>',
-                                                    data: {kd_prov: <?= $row->kd_prov; ?>, kd_kab: <?= $row->kd_kab; ?>, kd_kec: <?= $row->kd_kec; ?>, kd_desa: <?= $row->kd_desa; ?>, tahun:<?= $a['tahun']; ?>, nilai: nilai, aksi: 'ike'},
-                                                    success: function (msg, stts) {
-                                                        var iksNilai = parseFloat(msg['iks']);
-                                                        var ikeNilai = parseFloat(msg['ike']);
-                                                        var iklNilai = parseFloat(msg['ikl']);
-                                                        var statusIdm = msg['status'];
-                                                        var avr = Number((iksNilai + ikeNilai + iklNilai) / 3).toFixed(4);
-                                                        if (statusIdm == 'Mandiri') {
-                                                            var bg_color = 'bg-info';
-                                                        } else if (statusIdm == 'Maju') {
-                                                            var bg_color = 'bg-success';
-                                                        } else if (statusIdm == 'Berkembang') {
-                                                            var bg_color = 'bg-warning';
-                                                        } else if (statusIdm == 'Tertinggal') {
-                                                            var bg_color = 'bg-danger';
-                                                        } else {
-                                                            var bg_color = '';
-                                                        }
-                                                        $('#bg_color<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').removeClass();
-                                                        $('#bg_color<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').addClass(bg_color);
-                                                        $('.jml_idm<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').text(avr);
-                                                        $('.statusIdm<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').text(statusIdm);
+                                        });
+                                        $(".ike<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>").change(function () {
+                                            var nilai = $(this).val();
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: '<?= site_url('penilaian/Penilaian_idm/updateImd'); ?>',
+                                                data: {kd_prov: <?= $row->kd_prov; ?>, kd_kab: <?= $row->kd_kab; ?>, kd_kec: <?= $row->kd_kec; ?>, kd_desa: <?= $row->kd_desa; ?>, tahun:<?= $a['tahun']; ?>, nilai: nilai, aksi: 'ike'},
+                                                success: function (msg, stts) {
+                                                    var iksNilai = parseFloat(msg['iks']);
+                                                    var ikeNilai = parseFloat(msg['ike']);
+                                                    var iklNilai = parseFloat(msg['ikl']);
+                                                    var statusIdm = msg['status'];
+                                                    var avr = Number((iksNilai + ikeNilai + iklNilai) / 3).toFixed(4);
+                                                    if (statusIdm == 'Mandiri') {
+                                                        var bg_color = 'bg-info';
+                                                    } else if (statusIdm == 'Maju') {
+                                                        var bg_color = 'bg-success';
+                                                    } else if (statusIdm == 'Berkembang') {
+                                                        var bg_color = 'bg-warning';
+                                                    } else if (statusIdm == 'Tertinggal') {
+                                                        var bg_color = 'bg-danger';
+                                                    } else {
+                                                        var bg_color = '';
                                                     }
-                                                });
+                                                    $('#bg_color<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').removeClass();
+                                                    $('#bg_color<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').addClass(bg_color);
+                                                    $('.jml_idm<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').text(avr);
+                                                    $('.statusIdm<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').text(statusIdm);
+                                                }
                                             });
-                                            $(".ikl<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>").change(function () {
-                                                var nilai = $(this).val();
-                                                $.ajax({
-                                                    type: 'POST',
-                                                    url: '<?= site_url('penilaian/Penilaian_idm/updateImd'); ?>',
-                                                    data: {kd_prov: <?= $row->kd_prov; ?>, kd_kab: <?= $row->kd_kab; ?>, kd_kec: <?= $row->kd_kec; ?>, kd_desa: <?= $row->kd_desa; ?>, tahun:<?= $a['tahun']; ?>, nilai: nilai, aksi: 'ikl'},
-                                                    success: function (msg, stts) {
-                                                        var iksNilai = parseFloat(msg['iks']);
-                                                        var ikeNilai = parseFloat(msg['ike']);
-                                                        var iklNilai = parseFloat(msg['ikl']);
-                                                        var statusIdm = msg['status'];
-                                                        var avr = Number((iksNilai + ikeNilai + iklNilai) / 3).toFixed(4);
-                                                        if (statusIdm == 'Mandiri') {
-                                                            var bg_color = 'bg-info';
-                                                        } else if (statusIdm == 'Maju') {
-                                                            var bg_color = 'bg-success';
-                                                        } else if (statusIdm == 'Berkembang') {
-                                                            var bg_color = 'bg-warning';
-                                                        } else if (statusIdm == 'Tertinggal') {
-                                                            var bg_color = 'bg-danger';
-                                                        } else {
-                                                            var bg_color = '';
-                                                        }
-                                                        $('#bg_color<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').removeClass();
-                                                        $('#bg_color<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').addClass(bg_color);
-                                                        $('.jml_idm<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').text(avr);
-                                                        $('.statusIdm<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').text(statusIdm);
+                                        });
+                                        $(".ikl<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>").change(function () {
+                                            var nilai = $(this).val();
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: '<?= site_url('penilaian/Penilaian_idm/updateImd'); ?>',
+                                                data: {kd_prov: <?= $row->kd_prov; ?>, kd_kab: <?= $row->kd_kab; ?>, kd_kec: <?= $row->kd_kec; ?>, kd_desa: <?= $row->kd_desa; ?>, tahun:<?= $a['tahun']; ?>, nilai: nilai, aksi: 'ikl'},
+                                                success: function (msg, stts) {
+                                                    var iksNilai = parseFloat(msg['iks']);
+                                                    var ikeNilai = parseFloat(msg['ike']);
+                                                    var iklNilai = parseFloat(msg['ikl']);
+                                                    var statusIdm = msg['status'];
+                                                    var avr = Number((iksNilai + ikeNilai + iklNilai) / 3).toFixed(4);
+                                                    if (statusIdm == 'Mandiri') {
+                                                        var bg_color = 'bg-info';
+                                                    } else if (statusIdm == 'Maju') {
+                                                        var bg_color = 'bg-success';
+                                                    } else if (statusIdm == 'Berkembang') {
+                                                        var bg_color = 'bg-warning';
+                                                    } else if (statusIdm == 'Tertinggal') {
+                                                        var bg_color = 'bg-danger';
+                                                    } else {
+                                                        var bg_color = '';
                                                     }
-                                                });
-                                            })
-                                        </script>
-                                        </tr>
-                                    <?php } ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <?php } ?>
-                    </div>
+                                                    $('#bg_color<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').removeClass();
+                                                    $('#bg_color<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').addClass(bg_color);
+                                                    $('.jml_idm<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').text(avr);
+                                                    $('.statusIdm<?= $row->kd_prov . $row->kd_kab . $row->kd_kec . $row->kd_desa . $a['tahun']; ?>').text(statusIdm);
+                                                }
+                                            });
+                                        })
+                                    </script>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
         </article>
     </div>
+
 </section>
 <div class="modal fade" id="aksi_desa" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

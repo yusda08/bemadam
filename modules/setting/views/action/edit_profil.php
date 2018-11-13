@@ -197,7 +197,6 @@ $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
     });
 </script>
-</div>
 <script>
     function gantiimg() {
         $("#tampilimg").addClass('hidden');

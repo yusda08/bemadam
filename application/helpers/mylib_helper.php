@@ -32,14 +32,14 @@ function btn_tambah($attr = '', $ket = '') {
     echo "<button $rul class='btn btn-default btn-primary btn-flat btn-block' $attr><i class='fa fa-plus'></i> $ket</button>";
 }
 
-function btn_edit($attr = '', $ket = '', $class='') {
+function btn_edit($attr = '', $ket = '', $class = '') {
     $a = aksesLog();
     $m = aksesMenu($a['kd_user']);
     $rul = $m['rul_edit'];
     echo "<button $rul class='btn btn-default btn-warning btn-flat $class' $attr><i class='fa fa-pencil'></i> $ket</button>";
 }
 
-function btn_hapus($attr = '', $ket = '',  $class='') {
+function btn_hapus($attr = '', $ket = '', $class = '') {
     $a = aksesLog();
     $m = aksesMenu($a['kd_user']);
     $rul = $m['rul_hapus'];
@@ -82,6 +82,8 @@ if(a.print=1, '', 'disabled') as rul_print,
 b.link from menu_role a join menu b on a.id_menu=b.id where a.kd_user=$kd_user and b.link ='$url'")->row_array();
     }
 }
+
+
 
 function penilaianIdm() {
     $ci = &get_instance();
@@ -143,3 +145,4 @@ function Terbilang($x) {
     elseif ($x < 1000000000)
         return Terbilang($x / 1000000) . " juta" . Terbilang($x % 1000000);
 }
+
